@@ -55,6 +55,7 @@ class Director:
             self._buffer.reset_word()
         else:
             self._buffer.add_letter(letter)
+        self._writer.move_words()
 
     def _do_updates(self):
         """Updates the important game information for each round of play. In 

@@ -19,10 +19,14 @@ class Writer(Actor):
             x = random.randint(1,constants.MAX_X-1)
             y = random.randint(1,constants.MAX_Y-1)
             position = Point(x,y)
-            velocity = Point(1, 0)
-            self._add_segment(text, position, velocity)
+            vel_x = random.randint(-1,1)
+            vel_y = random.randint(-1,1)
+            while vel_x == 0 and vel_y == 0:
+                vel_y = random.randint(-1,1)
+            velocity = Point(vel_x, vel_y)
+            self._add_words(text, position, velocity)
     
-    def _add_segment(self, text, position, velocity):
+    def _add_words(self, text, position, velocity):
         """Adds a new segment to the snake using the given text, position and velocity.
 
         Args:
@@ -42,6 +46,9 @@ class Writer(Actor):
 
 
     def move_words(self):
-        ele = 
-        count = len(self._segments) - 1
+        count = len(self._random_words) - 1
         for n in range(count, -1, -1):
+            word = self._random_words[n]
+            velocity = word.get_velocity()
+            word.set_velocity(velocity)
+            word.move_next()
