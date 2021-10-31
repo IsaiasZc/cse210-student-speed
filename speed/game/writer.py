@@ -4,14 +4,23 @@ from game.actor import Actor
 from game.point import Point
 
 class Writer(Actor):
+    """Pick the words for the player.
+
+    Stereotype:
+        Information Holder
+    
+    Attributes:
+        _random_words(list): The random words picked from the constants.
+        _thanks(list): The thanks message fo the  winner.
+    """
     
     
     def __init__(self):
         """The class constructor."""
         super().__init__()
         self._random_words = []
-        self.reset()
         self._thanks = []
+        self.reset()
         self._bye_text()
 
     def reset(self):
@@ -29,10 +38,10 @@ class Writer(Actor):
             self._add_words(text, position, velocity, self._random_words)
     
     def _add_words(self, text, position, velocity, lists):
-        """Adds a new segment to the snake using the given text, position and velocity.
+        """Adds a new word to the random words using the provided list, position and velocity.
 
         Args:
-            self (Snake): An instance of snake.
+            self (Writer): An instance of writer.
             text (string): The segment's text.
             position (Point): The segment's position.
             velocity (Point): The segment's velocity.
@@ -44,10 +53,24 @@ class Writer(Actor):
         lists.append(segment)
     
     def get_random_words(self):
+        """Gets the random words generated.
+        
+        Args:
+            self (Writer): An instance of writer.
+        
+        Returns:
+            self._random_words: the current random words.
+        """
         return self._random_words
 
 
     def move_words(self):
+        """Move the words in its owned direction.
+
+        Args:
+            self (Writer): An instance of writer.
+
+        """
         count = len(self._random_words) - 1
         for n in range(count, -1, -1):
             word = self._random_words[n]
@@ -56,6 +79,12 @@ class Writer(Actor):
             word.move_next()
 
     def _bye_text(self):
+        """Create the text for the winner.
+
+        Args:
+            self (Writer): An instance of writer.
+        
+        """
         self._random_words.clear()
         text = "THANKS FOR PLAYING!..."  
         x = int(constants.MAX_X)
@@ -65,9 +94,24 @@ class Writer(Actor):
         self._add_words(text, position, velocity, self._thanks)
 
     def get_bye_text(self):
+        """Gets the winner text.
+        
+        Args:
+            self (Writer): An instance of writer.
+        
+        Returns:
+            self._thanks: the thanks message.
+        """
+
         return self._thanks
 
     def move_bye_text(self):
+        """Move the bye text in its owned direction.
+
+        Args:
+            self (Writer): An instance of writer.
+
+        """
         word = self._thanks[0]
         velocity = word.get_velocity()
         word.set_velocity(velocity)

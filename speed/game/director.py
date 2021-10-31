@@ -98,11 +98,3 @@ class Director:
 
         if not words:
             self._writer.reset()
-    
-    # def _is_not_winner(self):
-    #     point = self._score.get_points()
-
-    #     return point >= constants.WIN_SCORE
-       
-       
-
