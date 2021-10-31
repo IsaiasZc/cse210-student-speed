@@ -41,3 +41,11 @@ root                    (project root folder)
 ## Authors
 ---
 * # TODO: Add names and emails here
+    Luis Fernando Portugal Quispe
+    falconbladex1@gmail.com
+
+    Daniel Ašler
+    daniel.asler007@gmail.com
+
+    Isaias Zuñiga
+    zun21003@byui.edu

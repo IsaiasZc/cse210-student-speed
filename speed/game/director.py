@@ -12,6 +12,8 @@ class Director:
         Controller
 
     Attributes:
+        writer (Writer): an instance of Writer.
+        writer (Buffer): an instance of Buffer.
         input_service (InputService): The input mechanism.
         keep_playing (boolean): Whether or not the game can continue.
         output_service (OutputService): The output mechanism.
@@ -45,7 +47,7 @@ class Director:
 
     def _get_inputs(self):
         """Gets the inputs at the beginning of each round of play. In this case,
-        that means getting the desired direction and moving the snake.
+        that means getting the words written by the user.
 
         Args:
             self (Director): An instance of Director.
@@ -59,7 +61,8 @@ class Director:
 
     def _do_updates(self):
         """Updates the important game information for each round of play. In 
-        this case, that means checking for a collision and updating the score.
+        this case, that means showing the random words and update the score
+        of the right words.
 
         Args:
             self (Director): An instance of Director.
@@ -68,8 +71,8 @@ class Director:
         
     def _do_outputs(self):
         """Outputs the important game information for each round of play. In 
-        this case, that means checking if there are stones left and declaring 
-        the winner.
+        this case, that means checking if the user reach a score of 10 to 
+        declare him winner.
 
         Args:
             self (Director): An instance of Director.
@@ -86,6 +89,12 @@ class Director:
         self._output_service.flush_buffer()
         
     def _handle_match_word(self):
+        """Handles the proccess of the random words to be shown on the screen
+        and keeps track of the score. 
+
+        Args:
+            self (Director): An instance of Director.
+        """
         word = self._buffer.get_word()
         words = self._writer.get_random_words()
 
@@ -98,3 +107,6 @@ class Director:
 
         if not words:
             self._writer.reset()
+       
+       
+
