@@ -75,11 +75,14 @@ class Director:
             self (Director): An instance of Director.
         """
         self._output_service.clear_screen()
-        # self._output_service.draw_actor(self._food)
-        self._output_service.draw_actors(self._writer.get_random_words())
-        self._output_service.draw_actor(self._score)
-        self._output_service.draw_actor(self._buffer)
-        self._output_service.flush_buffer()
+        if self._is_not_winner():
+            self._output_service.draw_actors(self._writer.get_random_words())
+            self._output_service.draw_actor(self._score)
+            self._output_service.draw_actor(self._buffer)
+            self._output_service.flush_buffer()
+        else:
+
+            self._keep_playing = False
     
     def _handle_match_word(self):
         word = self._buffer.get_word()
@@ -94,3 +97,13 @@ class Director:
 
         if not words:
             self._writer.reset()
+    
+    def _is_not_winner(self):
+        win = False
+        score = self._score.get_points()
+        if score >= constants.WIN_SCORE:
+            self._output_service.clear_screen()
+            win = True
+
+        return win
+
