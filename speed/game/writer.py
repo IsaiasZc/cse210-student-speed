@@ -11,6 +11,8 @@ class Writer(Actor):
         super().__init__()
         self._random_words = []
         self.reset()
+        self._thanks = []
+        self._bye_text()
 
     def reset(self):
         self._random_words.clear()
@@ -24,9 +26,9 @@ class Writer(Actor):
             while vel_x == 0 and vel_y == 0:
                 vel_y = random.randint(-1,1)
             velocity = Point(vel_x, vel_y)
-            self._add_words(text, position, velocity)
+            self._add_words(text, position, velocity, self._random_words)
     
-    def _add_words(self, text, position, velocity):
+    def _add_words(self, text, position, velocity, lists):
         """Adds a new segment to the snake using the given text, position and velocity.
 
         Args:
@@ -39,7 +41,7 @@ class Writer(Actor):
         segment.set_text(text)
         segment.set_position(position)
         segment.set_velocity(velocity)
-        self._random_words.append(segment)
+        lists.append(segment)
     
     def get_random_words(self):
         return self._random_words
@@ -52,3 +54,21 @@ class Writer(Actor):
             velocity = word.get_velocity()
             word.set_velocity(velocity)
             word.move_next()
+
+    def _bye_text(self):
+        self._random_words.clear()
+        text = "THANKS FOR PLAYING!..."  
+        x = int(constants.MAX_X)
+        y = int(constants.MAX_Y / 2)
+        position = Point(x,y)
+        velocity = Point(1, 0)
+        self._add_words(text, position, velocity, self._thanks)
+
+    def get_bye_text(self):
+        return self._thanks
+
+    def move_bye_text(self):
+        word = self._thanks[0]
+        velocity = word.get_velocity()
+        word.set_velocity(velocity)
+        word.move_next()
